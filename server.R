@@ -9,6 +9,7 @@
     clean_corpus=function(topic){
       topic_tweets=searchTwitter(topic,lang="en",n=500,resultType = "recent")
       topic_text=sapply(topic_tweets,function(x) x$getText())
+      topic_text=str_replace_all(topic_text,"[^[:graph:]]", " ") 
       #tweets_text <- sapply(topic_tweets,function(row) iconv(row, "latin1", "ASCII", sub=""))
       topic_corpus=Corpus(VectorSource(topic_text))
       topic_corpus=tm_map(topic_corpus,removePunctuation)
@@ -16,7 +17,13 @@
       topic_corpus=tm_map(topic_corpus,removeWords,stopwords("english"))
       topic_corpus=tm_map(topic_corpus,removeNumbers)
       topic_corpus=tm_map(topic_corpus,stripWhitespace)
-      return(topic_corpus)
+      return(dataframe)
+    }
+    
+    regular_corpus=function(topic){
+      topic_tweets=searchTwitter(topic,lang="en",n=500,resultType = "recent")
+      dataframe<-twListToDF(topic_tweets)
+      return(dataframe)
     }
     
     output$wordcloud <- renderPlot({

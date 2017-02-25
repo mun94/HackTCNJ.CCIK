@@ -17,7 +17,7 @@
       topic_corpus=tm_map(topic_corpus,removeWords,stopwords("english"))
       topic_corpus=tm_map(topic_corpus,removeNumbers)
       topic_corpus=tm_map(topic_corpus,stripWhitespace)
-      return(dataframe)
+      return(topic_corpus)
     }
     
     regular_corpus=function(topic){

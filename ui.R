@@ -18,10 +18,18 @@ pageWithSidebar(
     textInput("twitterHandle","Please enter your Twitter Handle",value="")
     ),
   mainPanel(
-    plotOutput("histogram")
+    tabsetPanel(
+      tabPanel("Summary"),
+      tabPanel("Plot",
+               # plotOutput("histogram")
+        column(8, plotOutput("histogram")),
+        column(12, plotOutput("histogram"))
+        )
+      )
+    )
     # plotOutput("wordcloud")
     #output histogram
-    
+    # plotOutput("histogram")
     #output time series
     #output summary states
     #output geo heat maps

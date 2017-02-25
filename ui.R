@@ -18,8 +18,8 @@ pageWithSidebar(
     textInput("twitterHandle","Please enter your Twitter Handle",value="")
     ),
   mainPanel(
-    plotOutput("histogram")
-    # plotOutput("wordcloud")
+    # plotOutput("histogram")
+    plotOutput("wordcloud")
     #output histogram
     
     #output time series

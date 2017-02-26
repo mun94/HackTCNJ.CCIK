@@ -16,11 +16,18 @@ pageWithSidebar(
     ),
   mainPanel(
     tabsetPanel(
-      tabPanel("Summary Statistics"),
+      tabPanel("Wordcloud",
+               plotOutput("wordcloud")),
       tabPanel("Histogram",
                plotOutput("histogram")),
-      tabPanel("Wordcloud",
-             plotOutput("wordcloud"))
+      tabPanel("Time Series",
+             plotOutput("timeseries")),
+      tabPanel("Time Series Pie Charts",
+             plotOutput("piechart1"), plotOutput("piechart2"),
+             plotOutput("piechart3"), plotOutput("piechart4"),
+             plotOutput("piechart5"), plotOutput("piechart6"),
+             plotOutput("piechart7"))
+            
       )
   
     #output histogram

@@ -13,6 +13,11 @@ access_token <- ''
 access_secret <- ''
 setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
+# Timeline Input 
+min_timeline="2013-01-01"
+max_timeline="2017-01-01"
+
+
 # Geographical Location Input 
 geo_input = 'NY'
 

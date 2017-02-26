@@ -3,6 +3,11 @@
   library(shiny)
   library(wordcloud)
   library(tm)
+  library(stringr)
+  library(plyr)
+  library(SentimentAnalysis)
+  library(NLP)
+  library(slam)
   
   shinyServer(function(input, output) {
     
@@ -27,13 +32,27 @@
       return(dataframe)
     }
     
+    getSentiment <- function(tweets){
+      tweets_text <- sapply(tweets, function(x) x$getText())
+      tweets_text_corpus <- Corpus(VectorSource(tweets_text))
+      tweets_text_corpus <- tm_map(tweets_text_corpus, content_transformer(function(x) iconv(x, to='UTF-8-MAC', sub='byte')), mc.cores=1)
+      sentiment <- analyzeSentiment(tweets_text_corpus)
+    }
     output$wordcloud <- renderPlot({
       wordcloud(clean_corpus(c(input$topic)), scale=c(4,0.5), colors=brewer.pal(8, "Dark2"))
     })
     
+    sentimentData = getSentiment(regular_corpus(c(input$topic)))
     output$histogram <- renderPlot({
-      x <- faithful[,2] #insert sentiment data
+      #x <- faithful[,2] #insert sentiment data
+      x = sentimentData
       bins <- seq(min(x), max(x), length.out = 20)
       hist(x, breaks = bins, col = 'darkgray', border = 'white')
     })
+    
+    
 })
+  
+  
+  
+  

@@ -7,7 +7,7 @@
   shinyServer(function(input, output) {
     
     clean_corpus=function(topic){
-      topic_tweets=searchTwitter(topic,lang="en",n=500,resultType = "recent")
+      topic_tweets=searchTwitter(topic,lang="en",n=500,resultType = "popular")
       topic_text=sapply(topic_tweets,function(x) x$getText())
       topic_text=str_replace_all(topic_text,"[^[:graph:]]", " ") 
       #tweets_text <- sapply(topic_tweets,function(row) iconv(row, "latin1", "ASCII", sub=""))
@@ -22,7 +22,7 @@
     }
     
     regular_corpus=function(topic){
-      topic_tweets=searchTwitter(topic,lang="en",n=500,resultType = "recent")
+      topic_tweets=searchTwitter(topic,lang="en",n=500,resultType = "popular")
       dataframe<-twListToDF(topic_tweets)
       return(dataframe)
     }

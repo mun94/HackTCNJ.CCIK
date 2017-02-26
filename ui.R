@@ -3,7 +3,7 @@ library(RCurl)
 library(shiny)
 
 pageWithSidebar(
-  headerPanel('Creative Name'),
+  headerPanel('Shoot For the Mun'),
   sidebarPanel(
     textInput("topic","Please enter a topic",value="HACKTCNJ"),
     #dates

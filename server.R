@@ -56,7 +56,7 @@
      hist(x, col = 'darkgray', border = 'white')
    })
     
-   timeseries_helper = function(topic){
+   avg_sentiment <- eventReactive(input$submit, {
      long_time_ago="2016-01-01"
      until_timeline="2017-02-19"
      until_timeline_num <- strsplit(until_timeline, "\\-")[[1]]
@@ -74,7 +74,7 @@
        begin_day_str = formatC(day_index, width=2, flag="0")
        until_d = paste("2017-02", begin_day_str, sep="-")
        print(until_d)
-       tweets <- searchTwitter(topic, n=100, since=long_time_ago, until=until_d) # API Call on each day
+       tweets <- searchTwitter(input$topic, n=100, since=long_time_ago, until=until_d) # API Call on each day
        if (length(tweets) != 0){
          tweets.matrix <- twListToDF(tweets)
          tweets_text <- sapply(tweets, function(x) x$getText())
@@ -91,13 +91,13 @@
        # print(tot_num_tweet)
      }
      return(avg_sentiment)
-   }
+   })
    
   output$timeseries <- renderPlot({
-    avg_sentiment=timeseries_helper(input$topic)
+    #avg_sentiment=timeseries_helper(input$topic)
     #avg_sentiment=as.data.frame(avg_sentiment)
     # Graph
-    plot(x=c(1,2,3,4,5,6,7),y=avg_sentiment[1:7],, type="o", col="blue", ylim=c(-1,1), axes=FALSE, ann=FALSE)
+    plot(x=c(1,2,3,4,5,6,7),y=avg_sentiment()[1:7], type="o", col="blue", ylim=c(-1,1), axes=FALSE, ann=FALSE)
     # Make x axis using Day1 to Day7
     axis(1, las=1, at=1:7, lab=c("Day 1", "Day 2", "Day 3", "Day 4", "Day 5", "Day 6", "Day 7"))
     # Make y axis with horizontal labels that display -1, 0, and 1 as -, neural, and +, repsectively.
@@ -106,7 +106,7 @@
     box()
   })
   
-  ratio_sentiment_num = eventReactive(input$topic, {
+  ratio_sentiment_num = eventReactive(input$submit, {
     # Look at how many people use the topic daily.
     location = '34.0499,-118.2408,200mi' # The location of LA
     long_time_ago="2016-01-01"
@@ -126,7 +126,7 @@
       begin_day_str = formatC(day_index, width=2, flag="0")
       until_d = paste("2017-02", begin_day_str, sep="-")
       print(until_d)
-      tweets <- searchTwitter(topic, n=100, since=long_time_ago, until=until_d)
+      tweets <- searchTwitter(input$topic, n=100, since=long_time_ago, until=until_d)
       if (length(tweets) != 0){
         tweets.matrix <- twListToDF(tweets)
         tweets_text <- sapply(tweets, function(x) x$getText())

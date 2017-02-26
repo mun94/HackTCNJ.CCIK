@@ -13,6 +13,38 @@ access_token <- ''
 access_secret <- ''
 setup_twitter_oauth(consumer_key, consumer_secret, access_token, access_secret)
 
+# Geographical Location Input 
+geo_input = 'NY'
+
+# Geocode
+if (geo_input == ""){
+  # Use the searchTwitter function to only get tweets within 50 miles of Los Angeles
+  tweets <- searchTwitter(topic_input, n=10000, lang="en", since=min_timeline)
+  tweets.matrix <- twListToDF(tweets)
+  tweets_timeline.df <- subset(tweets.matrix, created >= as.POSIXct(min_timeline) & created <= as.POSIXct(max_timeline))
+  
+} else if (!is.null(geo_input)){
+  switch(geo_input, 
+         # Use the searchTwitter function to only get tweets within 50 miles of the location
+         'LA'={
+           location = '34.0499,-118.2408,200mi'
+         },
+         'NJ'={
+           location = '40.0583,-74.4057,200mi'
+         },
+         'NY'={
+           location = '40.7128,-74.0059,200mi'
+         }
+  )
+  
+  if (!is.null(location)){
+    # Run Twitter Search. Format is searchTwitter("Search Terms", n=100, lang="en", geocode="lat,lng", also accepts since and until).
+    # Use the searchTwitter function to only get tweets within 50 miles of the location
+    #tweets <- searchTwitter(topic_input, n=100, lang="en", geocode=location, since=min_timeline)
+    #tweets.matrix <- twListToDF(tweets)
+    #tweets_timeline.df <- subset(tweets.matrix, created >= as.POSIXct(min_timeline) & created <= as.POSIXct(max_timeline))
+  }
+}
 
 #setup_twitter_oauth(consumer_key, consumer_secret,access_token, access_secret)
 searchTerm = 'hell'

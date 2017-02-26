@@ -5,15 +5,13 @@ library(shiny)
 pageWithSidebar(
   headerPanel('Creative Name'),
   sidebarPanel(
-    textInput("topic","Please enter a topic",value=""),
+    textInput("topic","Please enter a topic",value="HACKTCNJ"),
     #dates
     dateRangeInput("dateRange",
                    label = "Date range input: yyyy-mm-dd",
                    start = Sys.Date() - 7, end = Sys.Date()
     ),
-    #twitter handle, required if checkbox is checked
-    textInput("lat", label = "latitude:", value = 40.75),
-    textInput("long", label = "longitude:", value = -74),
+    checkboxInput("useRecent", "Use recent tweets?", value=TRUE),
     actionButton("submit", "Submit")
     ),
   mainPanel(

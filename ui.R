@@ -1,4 +1,3 @@
-
 library(twitteR)
 library(RCurl)
 library(shiny)
@@ -15,13 +14,15 @@ pageWithSidebar(
                    start = Sys.Date() - 7, end = Sys.Date()
     ),
     #twitter handle, required if checkbox is checked
+    textInput("lat", label = "latitude:", value = 40.75),
+    textInput("long", label = "longitude:", value = -74),
     textInput("twitterHandle","Please enter your Twitter Handle",value="")
     ),
   mainPanel(
     # plotOutput("histogram")
-    plotOutput("wordcloud")
+    plotOutput("wordcloud"),
+    plotOutput("map")
     #output histogram
-    
     #output time series
     #output summary states
     #output geo heat maps

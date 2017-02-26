@@ -1,7 +1,6 @@
 library(twitteR)
 library(RCurl)
 library(shiny)
-library(shinyIncubator)
 
 pageWithSidebar(
   headerPanel('Creative Name'),
@@ -15,7 +14,6 @@ pageWithSidebar(
     #twitter handle, required if checkbox is checked
     textInput("lat", label = "latitude:", value = 40.75),
     textInput("long", label = "longitude:", value = -74),
-    textInput("twitterHandle","Please enter your Twitter Handle",value=""),
     actionButton("submit", "Submit")
     ),
   mainPanel(
@@ -26,7 +24,7 @@ pageWithSidebar(
       tabPanel("Wordcloud",
              plotOutput("wordcloud"))
       )
-    
+  
     #output time series
     #output summary states
     #output geo heat maps
